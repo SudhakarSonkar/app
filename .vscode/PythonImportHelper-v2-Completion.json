@@ -81,54 +81,6 @@
         "documentation": {}
     },
     {
-        "label": "PermissionsMixin",
-        "importPath": "django.contrib.auth.models",
-        "description": "django.contrib.auth.models",
-        "isExtraImport": true,
-        "detail": "django.contrib.auth.models",
-        "documentation": {}
-    },
-    {
-        "label": "make_password",
-        "importPath": "django.contrib.auth.hashers",
-        "description": "django.contrib.auth.hashers",
-        "isExtraImport": true,
-        "detail": "django.contrib.auth.hashers",
-        "documentation": {}
-    },
-    {
-        "label": "serializers",
-        "importPath": "rest_framework",
-        "description": "rest_framework",
-        "isExtraImport": true,
-        "detail": "rest_framework",
-        "documentation": {}
-    },
-    {
-        "label": "viewsets",
-        "importPath": "rest_framework",
-        "description": "rest_framework",
-        "isExtraImport": true,
-        "detail": "rest_framework",
-        "documentation": {}
-    },
-    {
-        "label": "permissions",
-        "importPath": "rest_framework",
-        "description": "rest_framework",
-        "isExtraImport": true,
-        "detail": "rest_framework",
-        "documentation": {}
-    },
-    {
-        "label": "status",
-        "importPath": "rest_framework",
-        "description": "rest_framework",
-        "isExtraImport": true,
-        "detail": "rest_framework",
-        "documentation": {}
-    },
-    {
         "label": "serializers",
         "importPath": "rest_framework",
         "description": "rest_framework",
@@ -399,15 +351,6 @@
         "documentation": {}
     },
     {
-        "label": "IsAdminOrOwnerPermission",
-        "kind": 6,
-        "importPath": "user_management.accounts.permissions",
-        "description": "user_management.accounts.permissions",
-        "peekOfCode": "class IsAdminOrOwnerPermission(permissions.BasePermission):\n    def has_permission(self, request, view):\n        if request.user.is_authenticated:\n            return True\n        return False\n    def has_object_permission(self, request, view, obj):\n        if request.user.role == 'admin':\n            return True\n        return obj == request.user",
-        "detail": "user_management.accounts.permissions",
-        "documentation": {}
-    },
-    {
         "label": "UserSerializer",
         "kind": 6,
         "importPath": "user_management.accounts.serializers",
@@ -466,7 +409,7 @@
         "kind": 6,
         "importPath": "user_management.accounts.views",
         "description": "user_management.accounts.views",
-        "peekOfCode": "class LoginView(APIView):\n    def post(self, request):\n        email = request.data.get('email')\n        password = request.data.get('password')\n        user = get_user_model().objects.filter(email=email).first()\n        if user and user.check_password(password):\n            if user.is_banned:\n                return Response({'error': 'User is banned'}, status=status.HTTP_403_FORBIDDEN)\n            refresh = RefreshToken.for_user(user)\n            return Response({",
+        "peekOfCode": "class LoginView(APIView):\n    def post(self, request):\n        email = request.data.get('email')\n        password = request.data.get('password')\n        user = get_user_model().objects.filter(email=email).first()\n        if user and user.check_password(password):\n            refresh = RefreshToken.for_user(user)\n            return Response({\n                'refresh': str(refresh),\n                'access': str(refresh.access_token),",
         "detail": "user_management.accounts.views",
         "documentation": {}
     },
